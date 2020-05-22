@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, ScrollView, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
+import { SafeAreaView, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity, View } from 'react-native';
 import api from './services/api';
-
-
 export default function App() {
   const [projects, setProjects] = useState([]);
-
 
   useEffect(() => {
     api.get('projects').then(response => {
@@ -36,7 +33,9 @@ export default function App() {
           data={projects}
           keyExtractor={project => project.id}
           renderItem={({ item: project }) => (
+            <View style={styles.projectContainer}>
             <Text style={styles.project} >{project.title}</Text>
+            </View>
           )}
 
         />
@@ -64,13 +63,24 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#7159c1',
+    backgroundColor:'#7159c1'
+      },
+    
+  projectContainer:{
+    backgroundColor: '#fff',
+    marginTop: 15,
+    marginRight: 15,
+    marginLeft: 15,
+    padding: 15,
+    borderRadius: 5,
+
 
   },
 
   project: {
-    color: '#fff',
-    fontSize: 25,
+    color: 'black',
+    fontSize: 20,
+    fontWeight: "bold",
 
   },
 
@@ -89,6 +99,7 @@ const styles = StyleSheet.create({
 
 
   }
+
 
 
 });
